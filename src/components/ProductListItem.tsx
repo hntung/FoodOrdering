@@ -1,6 +1,7 @@
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { Product } from '@/types'; 
+import { Link } from 'expo-router';
 
 const defaultPizzaImage = 
   'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
@@ -13,15 +14,17 @@ type ProductListItemProps = {
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
   return (
-    <View style={styles.container}>
-      <Image source={{uri: product.image || defaultPizzaImage}} 
-      style={styles.image} 
-      resizeMode="contain"
-      />
-      
-      <Text style={styles.title}>{product.name}</Text>
-      <Text style={styles.price}>${product.price}</Text>
-    </View>
+    <Link href={`/${product.id}`} asChild>
+      <Pressable style={styles.container}>
+       <Image source={{uri: product.image || defaultPizzaImage}} 
+        style={styles.image} 
+        resizeMode="contain"
+        />
+
+        <Text style={styles.title}>{product.name}</Text>
+        <Text style={styles.price}>${product.price}</Text>
+      </Pressable>
+    </Link>
   );
 }
 
