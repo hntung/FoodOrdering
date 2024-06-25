@@ -3,7 +3,7 @@ import Colors from '@/constants/Colors';
 import { Product } from '@/types'; 
 import { Link } from 'expo-router';
 
-const defaultPizzaImage = 
+export const defaultPizzaImage = 
   'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
 
 type ProductListItemProps = {
