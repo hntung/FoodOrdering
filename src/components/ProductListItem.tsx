@@ -1,12 +1,21 @@
 import { StyleSheet, Text, View, Image } from 'react-native';
-import Colors from '@/src/constants/Colors';
-import products from '@/assets/data/products';
+import Colors from '@/constants/Colors';
+import { Product } from '@/types'; 
+
+const defaultPizzaImage = 
+  'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
+
+type ProductListItemProps = {
+  product: Product;
+
+};
 
 
-const ProductListItem = ({ product }: { product: any }) => {
+const ProductListItem = ({ product }: ProductListItemProps) => {
   return (
     <View style={styles.container}>
-      <Image source={{uri: product.image}} style={styles.image}/>
+      <Image source={{uri: product.image || defaultPizzaImage}} 
+      style={styles.image} />
       <Text style={styles.title}>{product.name}</Text>
       <Text style={styles.price}>${product.price}</Text>
     </View>
