@@ -2,8 +2,7 @@ import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { Product } from '@/types'; 
 import { Link, useSegments  } from 'expo-router';
-export const defaultPizzaImage = 
-  'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
+export const defaultPizzaImage = 'https://notjustdev-dummy.s3.us-east-2.amazonaws.com/food/extravaganzza.png';
 
 type ProductListItemProps = {
   product: Product;
