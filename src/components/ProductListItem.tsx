@@ -1,8 +1,7 @@
 import { StyleSheet, Text, View, Image, Pressable } from 'react-native';
 import Colors from '@/constants/Colors';
 import { Product } from '@/types'; 
-import { Link } from 'expo-router';
-
+import { Link, useSegments  } from 'expo-router';
 export const defaultPizzaImage = 
   'https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled-1150x647.png';
 
@@ -13,8 +12,9 @@ type ProductListItemProps = {
 
 
 const ProductListItem = ({ product }: ProductListItemProps) => {
+  const segments = useSegments();
   return (
-    <Link href={`/(tabs)/menu/${product.id}`} asChild>
+    <Link href={`/${segments[0]}/menu/${product.id}`} asChild>
       <Pressable style={styles.container}>
        <Image source={{uri: product.image || defaultPizzaImage}} 
         style={styles.image} 
