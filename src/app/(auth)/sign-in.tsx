@@ -12,10 +12,14 @@ const SignInScreen = () => {
 
   async function signInWithEmail() {
     setLoading(true);
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+
     if (error) Alert.alert(error.message);
-    setLoading(false)
-};
+    setLoading(false);
+  }
 
   return (
     <View style={styles.container}>

@@ -11,11 +11,12 @@ const SignUpScreen = () => {
   const [loading, setLoading] = useState(false);
 
   async function signUpWithEmail() {
-    const{ error } = await supabase.auth.signUp({ email, password });
-    if (error) Alert.alert('Error', error.message);
+    setLoading(true);
+    const { error } = await supabase.auth.signUp({ email, password });
+    if (error) Alert.alert(error.message);
     setLoading(false);
-
   }
+  
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ title: 'Sign up' }} />
