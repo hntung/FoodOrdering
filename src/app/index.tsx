@@ -13,6 +13,7 @@ const index = () => {
   }
 
   if (!session) {
+    console.log("Deo co session");
     return <Redirect href={'/sign-in'} />;
   }
 
@@ -31,6 +32,6 @@ const index = () => {
       <Button onPress={ () => supabase.auth.signOut() } text="Sign out" />
     </View>
   );
-};
+}; 
 
 export default index;
