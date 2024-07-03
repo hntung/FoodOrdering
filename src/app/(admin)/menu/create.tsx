@@ -6,7 +6,10 @@ import Colors from '@/constants/Colors';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import { useInsertProduct, useProduct, useUpdateProduct, useDeleteProduct } from '@/api/products';
-
+import * as FileSystem from 'expo-file-system';
+import { randomUUID } from 'expo-crypto';
+import { decode } from 'base64-arraybuffer';
+import { supabase } from '@/lib/supabase';
 
 const CreateProductScreen = () => {
     const [name, setName] = useState('');
@@ -60,12 +63,12 @@ const CreateProductScreen = () => {
             onCreate();
         }
     };
-    const onCreate = () => {
+    const onCreate = async () => {
         if(!validateInputs()) {
             return;
         }
-        console.warn('Create product: ',name);
-        insertProduct({ name, price: parseFloat(price), image },{
+        const imagePath = await uploadImage();
+        insertProduct({ name, price: parseFloat(price), image: imagePath },{
             onSuccess: () => {
                 resetFields();
                 router.back();
@@ -107,6 +110,25 @@ const CreateProductScreen = () => {
             },
         ]);
     };
+
+    const uploadImage = async () => {
+        if (!image?.startsWith('file://')) {
+          return;
+        }
+      
+        const base64 = await FileSystem.readAsStringAsync(image, {
+          encoding: 'base64',
+        });
+        const filePath = `${randomUUID()}.png`;
+        const contentType = 'image/png';
+        const { data, error } = await supabase.storage
+          .from('product-images')
+          .upload(filePath, decode(base64), { contentType });
+      
+        if (data) {
+          return data.path;
+        }
+      };
 
     const pickImage = async () => {
         // No permissions request is necessary for launching the image library
@@ -151,6 +173,8 @@ const CreateProductScreen = () => {
     )
 }
 
+export default CreateProductScreen;
+
 const styles = StyleSheet.create({
     container:{
         flex: 1,
@@ -180,6 +204,3 @@ const styles = StyleSheet.create({
         marginVertical: 10, 
     },
 });
-
-
-export default CreateProductScreen;
