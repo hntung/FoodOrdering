@@ -13,7 +13,6 @@ const index = () => {
   }
 
   if (!session) {
-    console.log("Deo co session");
     return <Redirect href={'/sign-in'} />;
   }
 
