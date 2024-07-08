@@ -4,7 +4,7 @@
 
 // Setup type definitions for built-in Supabase Runtime APIs
 import { serve } from 'https://deno.land/std@0.168.0/http/server.ts';
-import { stripe } from '../_utils/stripe';
+import { stripe } from '../_utils/stripe.ts';
 
 console.log('Hello from Functions!');
 
@@ -34,8 +34,14 @@ serve(async (req) => {
   }
 });
 /*
-  curl -i --location --request POST 'http://192.168.1.5:54321/functions/v1/payment-sheet' \
-    --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0' \
-    --header 'Content-Type: application/json' \
-    --data '{"amount": 1150}'
+$headers = @{
+  "Authorization" = "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZS1kZW1vIiwicm9sZSI6ImFub24iLCJleHAiOjE5ODM4MTI5OTZ9.CRXP1A7WOeoJeXxjNni43kdQwgnWNReilDMblYTn_I0"
+    "Content-Type" = "application/json"
+}
+
+$body = @{
+    "amount" = 1150
+} | ConvertTo-Json
+
+Invoke-RestMethod -Uri 'http://127.0.0.1:54321/functions/v1/payment-sheet' -Method Post -Headers $headers -Body $body
 */
