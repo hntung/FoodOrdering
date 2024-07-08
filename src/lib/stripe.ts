@@ -16,7 +16,7 @@ const fetchPaymentSheetParams = async (amount: number) => {
 export const initialisePaymentSheet = async (amount: number) => {
     console.log('Initialising payment sheet, for: ', amount);
 
-    const { paymentIntent, publishableKey } = await fetchPaymentSheetParams(
+    const { paymentIntent, publishableKey, customer, ephemeralKey } = await fetchPaymentSheetParams(
         amount
     );
     if(!paymentIntent || !publishableKey) return;
@@ -24,6 +24,8 @@ export const initialisePaymentSheet = async (amount: number) => {
     await initPaymentSheet({
         merchantDisplayName: 'SupaStore',
         paymentIntentClientSecret: paymentIntent,
+        customerId: customer,
+        customerEphemeralKeySecret: ephemeralKey,
         defaultBillingDetails: {
             name: 'Test User',
 
