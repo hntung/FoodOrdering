@@ -70,10 +70,10 @@ const getUserToken = async (userId) => {
   return data?.expo_push_token;
 };
 
-export const notfyUserAboutOrderOrderUpdate = async (order: Tables<'orders'>) => {
+export const notifyUserAboutOrderUpdate = async (order: Tables<'orders'>) => {
   const token = await getUserToken(order.user_id);
-  console.log(order);
-  const title = `Your order ${order.id} has been updated to ${order.status}`;
-  const body = 'Check it now!';
+  console.log('Order: ', order);
+  const title = `Your order is ${order.status}`;
+  const body = `Check it now!`;
   sendPushNotification(token, title, body);
-}
+};

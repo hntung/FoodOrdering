@@ -5,7 +5,7 @@ import OrderItemListItem from "@/components/OrderItemListItem";
 import Colors from "@/constants/Colors";
 import { OrderStatusList } from "@/types";
 import { useOrderDetails, useUpdateOrder } from "@/api/orders";
-import { notfyUserAboutOrderOrderUpdate } from "@/lib/notifications";
+import { notifyUserAboutOrderUpdate } from '@/lib/notifications';
 export default function OrderDatailScreen() {
     const { id: idString } = useLocalSearchParams();
     const id = parseFloat(typeof idString === 'string' ? idString : idString?.[0] ?? '');
@@ -17,7 +17,7 @@ export default function OrderDatailScreen() {
         await updateOrder({id: id , updatedFields: {status} });
         console.log('Notify: ',order?.user_id);
         if(order){
-            notfyUserAboutOrderOrderUpdate({...order, status});
+            notifyUserAboutOrderUpdate({...order, status});
         }
     };
     if(isLoading) {
